@@ -3,5 +3,6 @@
         <File Path="compose.local.yml"/>
         <File Path="compose.yml"/>
     </Folder>
+    <Project Path="ZootopiaAio.Bot/ZootopiaAio.Bot.csproj"/>
     <Project Path="ZootopiaAio/ZootopiaAio.csproj"/>
 </Solution>
