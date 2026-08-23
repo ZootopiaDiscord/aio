@@ -2,12 +2,13 @@ using System.Diagnostics;
 using DSharpPlus;
 using DSharpPlus.Commands.Processors.SlashCommands;
 using DSharpPlus.Entities;
+using ZootopiaAio.Bot.Services;
 
 namespace ZootopiaAio.Bot.Commands.General;
 
 internal record AboutCommand(SlashCommandContext Ctx, bool IsPrivate) : SlashCommand(Ctx);
 
-internal class AboutCommandHandler(Version version) : ICommandHandler<AboutCommand>
+internal class AboutCommandHandler(CachingService cachingService, Version version) : ICommandHandler<AboutCommand>
 {
     public async Task HandleAsync(AboutCommand command, CancellationToken cancellationToken = default)
     {
@@ -55,7 +56,16 @@ internal class AboutCommandHandler(Version version) : ICommandHandler<AboutComma
              -# All licensed under the MIT License
              """));
 
-        components.Add(new DiscordSeparatorComponent(true, DiscordSeparatorSpacing.Large)); // TODO add banner
+        if (cachingService.GetBannerUrl() is { } bannerUrl)
+        {
+            components.Add(new DiscordSeparatorComponent());
+            var desc = $"Banner for {command.Ctx.Client.CurrentUser.Username}";
+            components.Add(new DiscordMediaGalleryComponent(new DiscordMediaGalleryItem(bannerUrl, desc, false)));
+        }
+        else
+        {
+            components.Add(new DiscordSeparatorComponent(true, DiscordSeparatorSpacing.Large));
+        }
 
         components.Add(new DiscordTextDisplayComponent(
             $"-# Created by {Formatter.MaskedUrl("Tawmy", new Uri("https://tawmy.dev"))}"));

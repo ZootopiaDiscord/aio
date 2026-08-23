@@ -5,6 +5,7 @@ using DSharpPlus.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ZootopiaAio.Bot.Commands;
+using ZootopiaAio.Bot.EventHandlers;
 using ZootopiaAio.Bot.Services;
 
 namespace ZootopiaAio.Bot;
@@ -15,6 +16,8 @@ public static class DependencyInjection
     {
         public void AddBotServices(IConfiguration configuration)
         {
+            services.AddSingleton<CachingService>();
+
             var token = configuration.GetRequiredSection(EnvironmentVariables.BotToken).Value!;
 
             services.AddDiscordClient(token, DiscordIntents.None).Configure<DiscordConfiguration>(x =>
@@ -31,6 +34,8 @@ public static class DependencyInjection
             });
 
             services.AddCommandHandlers();
+
+            services.ConfigureEventHandlers(x => x.AddEventHandlers<ClientStartedEventHandler>());
 
             services.AddHostedService<BotService>();
         }
