@@ -1,0 +1,6 @@
+﻿services:
+  aio:
+    image: zootopia-aio
+    build:
+      context: .
+      dockerfile: ZootopiaAio/Dockerfile

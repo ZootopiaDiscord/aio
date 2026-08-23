@@ -1,0 +1,4 @@
+﻿services:
+  aio:
+    image: ghcr.io/zootopiadiscord/aio:1.0.0
+    restart: unless-stopped
