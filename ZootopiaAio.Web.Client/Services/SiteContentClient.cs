@@ -9,7 +9,7 @@ namespace ZootopiaAio.Web.Client.Services;
 public static class SiteContentClient
 {
     /// <summary>
-    /// Reads the content from <see cref="ContentApi.ContentPath"/>.
+    /// Reads the content from <see cref="ContentApi.ContentPath" />.
     /// </summary>
     /// <remarks>
     /// Called during startup, before the host is built, so the content is already in the container by
@@ -19,7 +19,8 @@ public static class SiteContentClient
     /// <exception cref="InvalidOperationException">The endpoint returned no content.</exception>
     public static async Task<SiteContent> FetchAsync(string baseAddress)
     {
-        using var http = new HttpClient { BaseAddress = new Uri(baseAddress) };
+        using var http = new HttpClient();
+        http.BaseAddress = new Uri(baseAddress);
 
         var content = await http.GetFromJsonAsync(ContentApi.ContentPath.TrimStart('/'),
             SiteContentJsonContext.Default.SiteContent);

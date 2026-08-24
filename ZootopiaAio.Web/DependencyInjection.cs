@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ZootopiaAio.Web.Client;
-using ZootopiaAio.Web.Client.Models;
 using ZootopiaAio.Web.Client.Services;
 using ZootopiaAio.Web.Services;
 
