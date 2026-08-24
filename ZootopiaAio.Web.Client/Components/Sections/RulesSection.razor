@@ -1,0 +1,60 @@
+@inject SiteContent Content
+
+<section class="rules grey @(_collapsed ? "section-collapse" : null)">
+
+    <SectionHead Name="rules" Label="Rules" OnToggle="Toggle"/>
+
+    <article>
+        <ul id="ul-rules">
+            @foreach (var rule in Content.Rules)
+            {
+                <li>
+                    @ContentMarkup.ToHtml(rule.Text)
+                    @if (rule.SubItems.Count > 0)
+                    {
+                        <ol>
+                            @foreach (var subItem in rule.SubItems)
+                            {
+                                <li>@ContentMarkup.ToHtml(subItem)</li>
+                            }
+                        </ol>
+                    }
+                </li>
+            }
+        </ul>
+        <ul id="ul-other">
+            @foreach (var rule in Content.OtherRules)
+            {
+                <li>@ContentMarkup.ToHtml(rule)</li>
+            }
+        </ul>
+        <ul id="ul-zpd">
+            @foreach (var rule in Content.PoliceRules)
+            {
+                <li>
+                    @ContentMarkup.ToHtml(rule.Text)
+                    @if (rule.SubItems.Count > 0)
+                    {
+                        <ol>
+                            @foreach (var subItem in rule.SubItems)
+                            {
+                                <li>@ContentMarkup.ToHtml(subItem)</li>
+                            }
+                        </ol>
+                    }
+                </li>
+            }
+        </ul>
+    </article>
+</section>
+
+@code {
+
+    private bool _collapsed;
+
+    private void Toggle()
+    {
+        _collapsed = !_collapsed;
+    }
+
+}

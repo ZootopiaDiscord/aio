@@ -7,6 +7,7 @@
         <NoDefaultLaunchSettingsFile>True</NoDefaultLaunchSettingsFile>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <AssemblyVersion>0.1.0</AssemblyVersion>
+        <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,7 +17,13 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.11"/>
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\ZootopiaAio.Bot\ZootopiaAio.Bot.csproj"/>
+        <ProjectReference Include="..\ZootopiaAio.Web\ZootopiaAio.Web.csproj"/>
+        <ProjectReference Include="..\ZootopiaAio.Web.Client\ZootopiaAio.Web.Client.csproj"/>
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,82 @@
+.channels {
+    & article ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        display: grid;
+        grid-template-columns: 145px auto;
+
+        &.is-hidden {
+            display: none;
+        }
+
+        & li {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            &.is-hidden {
+                display: none;
+            }
+
+            &:not(:last-child):not(:nth-last-child(2)) {
+                margin-bottom: 10px;
+            }
+
+            /* category name */
+
+            &:first-child {
+                grid-column-start: 1;
+                grid-column-end: 3;
+                margin-top: 20px;
+                margin-left: 26px;
+                text-transform: uppercase;
+                cursor: pointer;
+
+                -webkit-user-select: none;
+                user-select: none;
+
+                &:before {
+                    position: absolute;
+                    content: '';
+                    left: -16px;
+                    top: 50%;
+                    transform: translate(0, -50%);
+                    width: 0;
+                    height: 0;
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+                    border-top: 9px solid #fff;
+
+                    /* Nested so the override cannot lose to the specificity of the rule it is in. */
+
+                    @media (prefers-color-scheme: light) {
+                        border-top-color: #000;
+                    }
+                }
+
+                &.channelCategory-closed:before {
+                    transform: rotate(-90deg) translate(5px, calc(-50% + 5px));
+                }
+            }
+        }
+    }
+
+    & input,
+    & label {
+        cursor: pointer;
+    }
+}
+
+#channel-checkboxes {
+    text-align: center;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+@media (prefers-color-scheme: light) {
+    .channels article ul li:first-child:before {
+        border-top-color: #000;
+    }
+}

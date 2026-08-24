@@ -1,0 +1,56 @@
+@inject SiteContent Content
+
+<section class="bots @(_collapsed ? "section-collapse" : null)">
+
+    <SectionHead Name="bots" Label="Bots" OnToggle="Toggle"/>
+
+    <article>
+        <div id="bots-major">
+            @foreach (var bot in Content.Bots)
+            {
+                <div class="bot">
+                    <div class="bot-head">
+                        <img src="@WebAssets.Image($"bots/{bot.Image}")" alt="@bot.Name"/>
+                        @bot.Name
+                        @if (!string.IsNullOrEmpty(bot.OriginalName))
+                        {
+                            <span class="bot-original-name">@bot.OriginalName</span>
+                        }
+                    </div>
+                    <div class="bot-foot">
+                        PURPOSE
+                        <div class="bot-roles">
+                            @foreach (var purpose in bot.Purposes)
+                            {
+                                <div class="bot-role">@purpose</div>
+                            }
+                        </div>
+                        <div class="bot-description">@bot.Description</div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div id="bots-minor">
+            @foreach (var bot in Content.MinorBots)
+            {
+                <div class="bot">
+                    <img src="@WebAssets.Image($"bots/{bot.Image}")" alt="@bot.Name"/>
+                    <div class="bot-minor-info"><span class="bot-minor-name">@bot.Name</span></div>
+                    <div class="bot-minor-description">@bot.Description</div>
+                </div>
+            }
+        </div>
+    </article>
+
+</section>
+
+@code {
+
+    private bool _collapsed = true;
+
+    private void Toggle()
+    {
+        _collapsed = !_collapsed;
+    }
+
+}

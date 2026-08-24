@@ -1,0 +1,198 @@
+/* design tokens */
+
+:root {
+    --section-padding: 5vw;
+    --section-collapse-time: 500ms;
+
+    --content-max-width: 840px;
+
+    --sectionHead-padding: 30px;
+    --sectionHead-size: 60px;
+
+    --channel-background: #3C414E;
+    --channel-color: #738BD7;
+    --channel-background-active: #6172AA;
+
+    --zootopia-gradient-light: #90DA6E;
+    --zootopia-gradient-dark: #4BB77A;
+
+    /* stacking order of the whole page */
+    --zindex-section: 20;
+    --zindex-scrollIndicator: 30;
+    --zindex-modal: 100;
+
+    /* shared by the role and bot cards */
+    --bot-margin: 18px;
+}
+
+@media only screen and (min-width: 740px) {
+    :root {
+        --section-padding: 10vw;
+
+        --sectionHead-padding: 40px;
+        --sectionHead-size: 80px;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    :root {
+        --section-padding: 15vw;
+    }
+}
+
+@media only screen and (min-width: 1450px) {
+    :root {
+        --section-padding: 20vw;
+    }
+}
+
+/* document */
+
+html {
+    /* Channel references elsewhere on the page are plain links to #channels. */
+    scroll-behavior: smooth;
+
+    /* Freeze the page behind the join dialog. */
+
+    &:has(.modal-container-show) {
+        overflow: hidden;
+    }
+}
+
+html,
+body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    background: #36393E;
+    font-size: 15px;
+    color: white;
+}
+
+a {
+    color: var(--zootopia-gradient-dark);
+    text-decoration: none;
+}
+
+/* section shell, shared by every section component */
+
+section {
+    z-index: var(--zindex-section);
+    box-sizing: border-box;
+    position: relative;
+    padding-left: var(--section-padding);
+    padding-right: var(--section-padding);
+    padding-bottom: 25px;
+    margin: 0 auto;
+    max-height: 500vh;
+    transition: max-height var(--section-collapse-time);
+
+    &:not(.header) {
+        overflow: hidden;
+    }
+}
+
+article {
+    margin: 0 auto;
+    max-width: var(--content-max-width);
+    transform-origin: top;
+    transition: transform var(--section-collapse-time), opacity var(--section-collapse-time);
+}
+
+.section-collapse {
+    max-height: calc(var(--sectionHead-padding) * 2 + var(--sectionHead-size));
+
+    /* The heading is a child component, so its arrow cannot be reached from a scoped sheet. */
+
+    & .sectionHead:before {
+        transform: rotate(180deg);
+    }
+
+    & article {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+.grey {
+    background: rgba(46, 49, 54, 1);
+}
+
+/* content markup, rendered from site.json and therefore unscoped */
+
+.channel {
+    background: var(--channel-background);
+    color: var(--channel-color);
+    text-decoration: none;
+    cursor: pointer;
+    transition: 100ms;
+
+    &:before {
+        content: '#';
+        color: var(--channel-color);
+        background: var(--channel-background);
+        transition: 100ms;
+    }
+}
+
+.command {
+    padding: 0 2px;
+    color: rgba(255, 255, 255, 0.8);
+    background: #2F3136;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.25);
+}
+
+/* reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --section-collapse-time: 0ms;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* pointer capable devices */
+
+@media not all and (hover: none) {
+    a:not(.channel):hover {
+        text-decoration: underline;
+    }
+
+    .channel:hover {
+        background: var(--channel-background-active);
+        color: white;
+
+        &:before {
+            background: var(--channel-background-active);
+            color: white;
+        }
+    }
+}
+
+/* light theme */
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --channel-background: #F1F3F1;
+        --channel-background-active: #738BD7;
+    }
+
+    html,
+    body {
+        background: initial;
+        color: initial;
+    }
+
+    .grey {
+        --channel-background: #ededed;
+        background: #F3F3F3;
+    }
+
+    .command {
+        background: #F8F9F9;
+        color: rgba(0, 0, 0, 0.8);
+        box-shadow: none;
+    }
+}

@@ -1,0 +1,29 @@
+@inject SiteContent Content
+
+<section class="roles grey @(_collapsed ? "section-collapse" : null)">
+
+    <SectionHead Name="roles" Label="Roles" OnToggle="Toggle"/>
+
+    <article>
+        <div id="roles-container">
+            @foreach (var role in Content.Roles)
+            {
+                <div class="role" id="role-@role.Slug">
+                    <div class="role-top">@role.Name</div>
+                    <div class="role-bottom">@ContentMarkup.ToHtml(role.Description)</div>
+                </div>
+            }
+        </div>
+    </article>
+</section>
+
+@code {
+
+    private bool _collapsed = true;
+
+    private void Toggle()
+    {
+        _collapsed = !_collapsed;
+    }
+
+}

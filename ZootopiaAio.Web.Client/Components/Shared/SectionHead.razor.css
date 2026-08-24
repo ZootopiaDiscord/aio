@@ -1,0 +1,105 @@
+.sectionHead {
+    --header-hue-rotate: hue-rotate(45deg);
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    padding-top: var(--sectionHead-padding);
+    padding-bottom: var(--sectionHead-padding);
+    max-width: var(--content-max-width);
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+
+    /* collapse arrow, rotated by .section-collapse on the section */
+
+    &:before {
+        --arrow-width: 12px;
+        --arrow-height: 22px;
+
+        position: absolute;
+        content: '';
+        top: 46px;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-left: var(--arrow-width) solid transparent;
+        border-right: var(--arrow-width) solid transparent;
+        border-bottom: var(--arrow-height) solid var(--zootopia-gradient-light);
+        transition: transform var(--section-collapse-time);
+    }
+
+    /* underline */
+
+    &:after {
+        --width: 100%;
+
+        position: absolute;
+        content: '';
+        height: 2px;
+        width: var(--width);
+        top: calc(var(--width) - 30px);
+        background: linear-gradient(90deg, var(--zootopia-gradient-dark), var(--zootopia-gradient-light));
+    }
+
+    & img {
+        left: 0;
+        height: var(--sectionHead-size);
+
+        /*
+            Sized through custom properties so a variant can override it without fighting the
+            specificity that scoped nesting adds.
+        */
+
+        &:nth-child(2) {
+            margin-left: 10px;
+            margin-top: var(--sectionHead-wordmark-top, 5px);
+            height: var(--sectionHead-wordmark-height, 35px);
+        }
+    }
+}
+
+/* The Zootopian Police wordmark is wider than the others, so it needs to be shorter. */
+
+.sectionHead-zpd {
+    --sectionHead-wordmark-top: 0px;
+    --sectionHead-wordmark-height: 28px;
+}
+
+@media only screen and (min-width: 740px) {
+    .sectionHead {
+        &:before {
+            --arrow-width: 14px;
+            --arrow-height: 26px;
+
+            top: 66px;
+        }
+
+        &:after {
+            top: calc(var(--width) - 40px);
+        }
+
+        & img:nth-child(2) {
+            height: var(--sectionHead-wordmark-height, 50px);
+        }
+    }
+
+    .sectionHead-zpd {
+        --sectionHead-wordmark-height: 40px;
+    }
+}
+
+@media not all and (hover: none) {
+    .sectionHead:hover {
+        & > img:nth-child(2) {
+            filter: var(--header-hue-rotate);
+            transition: 100ms;
+        }
+
+        &:before,
+        &:after {
+            filter: var(--header-hue-rotate);
+        }
+    }
+}

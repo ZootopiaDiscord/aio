@@ -1,0 +1,270 @@
+/* hero */
+
+.header {
+    padding: 8vmin;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto;
+    justify-items: center;
+
+    background: #98D9FF; /* taken from image, for illusion on the edges */
+
+    -webkit-user-select: none;
+    user-select: none;
+
+    &:after {
+        position: absolute;
+        content: '';
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        /* Root relative: this bundle and the asset it points at ship in different projects. */
+        background: url('/_content/ZootopiaAio.Web/img/header.jpg');
+        background-position: center;
+        background-size: cover;
+        z-index: -2;
+        filter: blur(7px);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    & > svg {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        transform: translate(0, 35%);
+    }
+}
+
+#zoopLogo {
+    max-width: 100%;
+    align-self: center;
+    pointer-events: none;
+}
+
+#bukoya {
+    position: absolute;
+    max-height: 50%;
+    max-width: 20%;
+    right: 0;
+    bottom: 3%;
+    pointer-events: none;
+}
+
+.header-link {
+    --size: 23vmin;
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--size);
+    height: var(--size);
+    margin: calc(var(--size) / 2) 0 calc(var(--size) / 3) 0;
+    background: rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 500ms;
+
+    & img {
+        position: relative;
+        width: 75%;
+        transform: translate(-4%, 6%) scale(1);
+    }
+}
+
+/* join dialog */
+
+.modal-container {
+    --modal-padding: 3vmin;
+
+    display: none;
+    z-index: var(--zindex-modal);
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+        --backdrop-filter: blur(20px);
+
+        background: rgba(0, 0, 0, 0.2);
+        -webkit-backdrop-filter: var(--backdrop-filter);
+        backdrop-filter: var(--backdrop-filter);
+    }
+}
+
+.modal-container-show {
+    display: flex;
+}
+
+.modal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: var(--modal-padding);
+    padding: var(--modal-padding);
+    max-width: 500px;
+    background: linear-gradient(135deg, rgba(56, 58, 63, 1), rgba(47, 49, 54, 1) 50%);
+    text-align: justify;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+
+    animation-name: modal-show;
+    animation-duration: 350ms;
+    animation-fill-mode: backwards;
+
+    &:before {
+        --height: 3px;
+
+        position: absolute;
+        content: '';
+        top: calc((-1) * var(--height));
+        left: 0;
+        width: 100%;
+        height: var(--height);
+        background: linear-gradient(90deg, var(--zootopia-gradient-dark), var(--zootopia-gradient-light));
+
+        animation-name: hueRotate;
+        animation-duration: 2s;
+        animation-delay: 100ms;
+        animation-timing-function: ease-out;
+    }
+}
+
+.modal-text {
+    margin: var(--modal-padding);
+}
+
+.modal-link {
+    position: relative;
+    margin: var(--modal-padding) 0 calc(var(--modal-padding) / 4) 0;
+    width: 30%;
+    font-size: 0;
+
+    animation-name: hueRotate;
+    animation-duration: 2s;
+    animation-delay: 100ms;
+    animation-timing-function: ease-out;
+
+    &:after {
+        display: none;
+        position: absolute;
+        content: '';
+        bottom: 1px;
+        right: 0;
+        height: 2px;
+        width: 65%;
+        background: linear-gradient(90deg, var(--zootopia-gradient-dark), var(--zootopia-gradient-light));
+    }
+
+    &:hover:after {
+        display: initial;
+    }
+
+    & img {
+        width: 100%;
+    }
+}
+
+@keyframes modal-show {
+    0% {
+        filter: opacity(0%);
+        transform: scale(0);
+    }
+    60% {
+        filter: opacity(100%);
+        transform: scale(1.05);
+    }
+    100% {
+        filter: opacity(100%);
+        transform: scale(1);
+    }
+}
+
+@keyframes hueRotate {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal:before,
+    .modal-link {
+        animation: none;
+    }
+
+    @keyframes modal-show {
+        0% {
+            filter: opacity(0%);
+            transform: scale(0.9);
+        }
+        100% {
+            filter: opacity(100%);
+            transform: scale(1);
+        }
+    }
+}
+
+@media only screen and (min-width: 540px) {
+    .modal-container {
+        --modal-padding: 2vmin;
+    }
+
+    .header-link {
+        --size: 18vmin;
+    }
+
+    .modal-link {
+        width: 20%;
+    }
+}
+
+@media only screen and (min-width: 740px) {
+    .modal-container {
+        --modal-padding: 16px;
+    }
+
+    .modal-link {
+        margin: var(--modal-padding) 0 calc(var(--modal-padding) / 2) 0;
+    }
+
+    .header-link {
+        --size: 150px;
+
+        margin: 60px 0 20px 0;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    #bukoya {
+        bottom: 4.6%;
+    }
+}
+
+@media not all and (hover: none) {
+    .header-link:hover {
+        background: rgba(0, 0, 0, 0.33);
+        transition: 200ms;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .header svg path {
+        fill: white;
+    }
+
+    .modal {
+        color: white;
+    }
+}

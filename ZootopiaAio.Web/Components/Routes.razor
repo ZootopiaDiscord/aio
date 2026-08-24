@@ -1,0 +1,10 @@
+@*
+    Every routable component lives in this library, so the router is pointed at this assembly rather
+    than at the host's.
+*@
+
+<Router AppAssembly="typeof(Routes).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="routeData"/>
+    </Found>
+</Router>

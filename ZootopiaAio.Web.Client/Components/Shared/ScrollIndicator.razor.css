@@ -1,0 +1,119 @@
+.scroll-indicator {
+    z-index: var(--zindex-scrollIndicator);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: calc(var(--section-padding) / 2 - 2px);
+    bottom: 0;
+    width: 2px;
+    height: 10%;
+    background: linear-gradient(var(--zootopia-gradient-light), var(--zootopia-gradient-dark));
+    cursor: pointer;
+    pointer-events: none;
+    transition: padding 500ms, filter 500ms, transform 100ms;
+
+    /* arrow */
+
+    & div {
+        display: none;
+        width: 100%;
+        height: 100%;
+        transform: translate(0, 1px) scaleY(1);
+        /* Root relative: this bundle and the asset it points at ship in different projects. */
+        background: url('/_content/ZootopiaAio.Web/img/V.png');
+        background-size: cover;
+        background-position: center;
+        transition: 500ms;
+    }
+
+    &:active > div {
+        transform: scale(0.75);
+        transition: 100ms;
+    }
+}
+
+.scroll-indicator-up {
+    filter: opacity(0%);
+    visibility: hidden;
+
+    & div {
+        transform: translate(0, -1px) scaleY(-1);
+    }
+
+    &:active > div {
+        transform: scaleY(-1) scale(0.75);
+        transition: 100ms;
+    }
+}
+
+@keyframes flashScrollIndicatorShadow {
+    0% {
+        transform: scale(1);
+        filter: opacity(100%);
+    }
+    20% {
+        transform: scale(1.8);
+        filter: opacity(0%);
+    }
+    99% {
+        transform: scale(1);
+        filter: opacity(0%);
+    }
+    100% {
+        transform: scale(1);
+        filter: opacity(100%);
+    }
+}
+
+/* Only a pointer target, and only visible, from this width up. */
+
+@media only screen and (min-width: 740px) {
+    .scroll-indicator {
+        --scrollIndicator-margin: 10px;
+
+        box-sizing: border-box;
+        left: var(--scrollIndicator-margin);
+        bottom: var(--scrollIndicator-margin);
+        padding: var(--scrollIndicator-margin);
+        width: calc(var(--scrollIndicator-margin) * 4);
+        height: calc(var(--scrollIndicator-margin) * 4);
+        background: rgba(54, 57, 62, 1);
+        border: 1px solid var(--zootopia-gradient-light);
+        border-radius: 50px;
+        pointer-events: initial;
+
+        & div {
+            display: initial;
+        }
+    }
+
+    .scroll-indicator-up {
+        filter: opacity(100%);
+        visibility: visible;
+    }
+
+    .scroll-indicator-shadow {
+        z-index: calc(var(--zindex-scrollIndicator) - 1);
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+        background: var(--zootopia-gradient-light);
+        border-radius: 100%;
+        filter: opacity(0%);
+        animation-name: flashScrollIndicatorShadow;
+        animation-duration: 4s;
+        animation-delay: 5s;
+        animation-iteration-count: infinite;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    @media only screen and (min-width: 740px) {
+        .scroll-indicator {
+            background: #F3F3F3;
+        }
+    }
+}

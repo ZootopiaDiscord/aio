@@ -1,0 +1,27 @@
+@*
+    Clickable heading that collapses and expands its section. Every heading uses a matching pair of
+    images in wwwroot/img/headers, named "{Name}-img.png" and "{Name}-title.svg".
+*@
+
+<div class="sectionHead sectionHead-@Name" @onclick="OnToggle">
+    <img src="@WebAssets.Image($"headers/{Name}-img.png")" alt="@($"{Label} Icon")"/>
+    <img src="@WebAssets.Image($"headers/{Name}-title.svg")" alt="@Label"/>
+</div>
+
+@code {
+
+    /// <summary>File name prefix of the heading's images.</summary>
+    [Parameter]
+    [EditorRequired]
+    public required string Name { get; set; }
+
+    /// <summary>Human readable heading, used for the alternative texts.</summary>
+    [Parameter]
+    [EditorRequired]
+    public required string Label { get; set; }
+
+    /// <summary>Raised when the heading is clicked.</summary>
+    [Parameter]
+    public EventCallback OnToggle { get; set; }
+
+}

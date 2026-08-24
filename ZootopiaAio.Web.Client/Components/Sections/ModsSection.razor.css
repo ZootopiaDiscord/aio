@@ -1,0 +1,80 @@
+.mods {
+    --mods-margin: 20px;
+    --mods-transition: 500ms;
+
+    & article {
+        max-width: 700px;
+    }
+}
+
+#mods-wrapper {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 0 calc(var(--section-padding) * -1 / 2);
+}
+
+.mod {
+    position: relative;
+    box-sizing: border-box;
+    width: 140px;
+    margin: calc(var(--section-padding) / 2);
+    font-size: 0;
+
+    & img {
+        transition: var(--mods-transition);
+        width: 100%;
+        border-radius: 100%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.33);
+    }
+
+    & h2 {
+        box-sizing: border-box;
+        margin: 0;
+        padding: var(--mods-margin) 0 0 0;
+        font-size: 20px;
+        font-weight: 300;
+        text-align: center;
+        pointer-events: none;
+        transition: var(--mods-transition);
+    }
+
+    /*
+        Coloured through a custom property because the scoped rewriter does not add the scope to
+        nested selectors inside a media query, so a nested override would lose on specificity.
+    */
+
+    & a {
+        color: var(--mods-link-color, white);
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+@media only screen and (min-width: 740px) {
+    #mods-wrapper {
+        margin: 0 calc(var(--mods-margin) * -1);
+        justify-content: center;
+    }
+
+    .mod {
+        margin: var(--mods-margin);
+    }
+}
+
+@media not all and (hover: none) {
+    .mod:hover img {
+        transform: scale(1.1);
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .mods {
+        --mods-link-color: black;
+    }
+}

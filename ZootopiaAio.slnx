@@ -4,5 +4,7 @@
         <File Path="compose.yml"/>
     </Folder>
     <Project Path="ZootopiaAio.Bot/ZootopiaAio.Bot.csproj"/>
+    <Project Path="ZootopiaAio.Web.Client/ZootopiaAio.Web.Client.csproj"/>
+    <Project Path="ZootopiaAio.Web/ZootopiaAio.Web.csproj"/>
     <Project Path="ZootopiaAio/ZootopiaAio.csproj"/>
 </Solution>

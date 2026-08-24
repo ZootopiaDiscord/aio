@@ -1,0 +1,31 @@
+@inject SiteContent Content
+
+<section class="mods grey @(_collapsed ? "section-collapse" : null)">
+
+    <SectionHead Name="zpd" Label="Zootopian Police" OnToggle="Toggle"/>
+
+    <article>
+        <div id="mods-wrapper">
+            @foreach (var moderator in Content.Moderators)
+            {
+                <div class="mod">
+                    <a href="https://discordapp.com/users/@moderator.DiscordId">
+                        <img src="@WebAssets.Image($"avatars/{moderator.DiscordId}.jpg")" alt="@moderator.Name"/>
+                        <h2>@moderator.Name</h2>
+                    </a>
+                </div>
+            }
+        </div>
+    </article>
+</section>
+
+@code {
+
+    private bool _collapsed;
+
+    private void Toggle()
+    {
+        _collapsed = !_collapsed;
+    }
+
+}

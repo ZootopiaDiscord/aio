@@ -1,0 +1,54 @@
+@*
+    Hero banner plus the join dialog it opens. Both live in one component because the dialog has to
+    sit outside every <section> to stack above them, while the button that opens it sits inside.
+*@
+
+<div class="modal-container @(_showModal ? "modal-container-show" : null)" @onclick="CloseModal">
+    <div class="modal" @onclick:stopPropagation="true">
+        <div class="modal-text">
+            After joining, please read the information channels and make sure you understand them.
+            Not following the rules might result in a permanent ban from the server.
+        </div>
+        <a href="@InviteUrl" class="modal-link">
+            <img src="@WebAssets.Image("headers/join.svg")" alt="join"/>
+        </a>
+    </div>
+</div>
+
+<section class="header">
+
+    <img src="@WebAssets.Image("zootopia-discord-logo-v1.png")" id="zoopLogo" alt="Zootopia Discord Logo"/>
+
+    <div class="header-link" id="join-button" @onclick="OpenModal">
+        <img src="@WebAssets.Image("headers/join.svg")" alt="join"/>
+    </div>
+
+    <img src="@WebAssets.Image("bukoya.png")" id="bukoya" alt="Bukoya's Art"/>
+
+    <svg viewBox="0 0 1023 83">
+        <path fill="#36393E" d="M1024,27.68c0,0-109.167-28.004-221.241-28.004S511.5,27.563,511.5,27.563
+            S364.931,51.268,251.447,51.268S-1,27.5-1,27.5V83h1024.5L1024,27.68z"></path>
+    </svg>
+
+</section>
+
+@code {
+
+    private bool _showModal;
+
+    /// <summary>Discord invite link the join button leads to.</summary>
+    [Parameter]
+    [EditorRequired]
+    public required string InviteUrl { get; set; }
+
+    private void OpenModal()
+    {
+        _showModal = true;
+    }
+
+    private void CloseModal()
+    {
+        _showModal = false;
+    }
+
+}

@@ -1,0 +1,55 @@
+#ul-rules {
+    list-style: decimal;
+    margin: 0;
+    padding-left: 16px;
+    font-weight: bold;
+
+    & ol > li {
+        margin-top: 10px;
+    }
+}
+
+#ul-rules ol,
+#ul-zpd ol {
+    list-style: lower-alpha;
+    margin-bottom: 25px;
+    padding-left: 16px;
+    font-weight: initial;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#ul-zpd,
+#ul-other {
+    margin: 0;
+    margin-top: 50px;
+    padding: 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#ul-zpd {
+    list-style: circle;
+    padding-left: 18px;
+}
+
+#ul-other {
+    list-style: none;
+    font-weight: bold;
+    color: white;
+}
+
+#ul-zpd > li,
+#ul-other > li {
+    margin-top: 10px;
+}
+
+@media (prefers-color-scheme: light) {
+    #ul-other {
+        color: initial;
+    }
+
+    #ul-rules ol,
+    #ul-zpd,
+    #ul-zpd ol {
+        color: rgba(0, 0, 0, 0.8);
+    }
+}

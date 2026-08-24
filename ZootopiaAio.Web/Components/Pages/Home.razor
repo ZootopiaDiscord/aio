@@ -1,0 +1,22 @@
+@page "/"
+@inject SiteOptions Options
+
+<PageTitle>Zootopia Discord</PageTitle>
+
+<ScrollIndicator @rendermode="InteractiveAuto"/>
+
+<HeaderSection InviteUrl="@Options.InviteUrl" @rendermode="InteractiveAuto"/>
+
+<InfoSection/>
+
+<RulesSection @rendermode="InteractiveAuto"/>
+
+<ChannelsSection @rendermode="InteractiveAuto"/>
+
+<RolesSection @rendermode="InteractiveAuto"/>
+
+<BotsSection @rendermode="InteractiveAuto"/>
+
+<ModsSection @rendermode="InteractiveAuto"/>
+
+<UpdateSection/>

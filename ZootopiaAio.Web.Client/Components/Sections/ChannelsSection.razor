@@ -1,0 +1,150 @@
+@implements IAsyncDisposable
+@inject SiteContent Content
+@inject IJSRuntime JsRuntime
+
+<section class="channels @(_collapsed ? "section-collapse" : null)" id="@ContentMarkup.ChannelsAnchor">
+
+    <SectionHead Name="channels" Label="Channels" OnToggle="Toggle"/>
+
+    <article>
+
+        <div id="channel-checkboxes">
+            <input type="checkbox" id="verified-channels" name="verified channels"
+                   checked="@_showVerified" @onchange="ToggleVerified"/>
+            <label for="verified-channels">Verified</label>
+
+            <input type="checkbox" id="nsfw-channels" name="nsfw section"
+                   checked="@_showNsfw" @onchange="ToggleNsfw"/>
+            <label for="nsfw-channels">NSFW</label>
+        </div>
+
+        @foreach (var category in Content.ChannelCategories)
+        {
+            var categoryCollapsed = _collapsedCategories.Contains(category.Name);
+
+            @* Two column grid: the category name spans both, then each channel contributes a
+               link cell and a description cell. *@
+            <ul class="@(IsVisible(category.Audience) ? null : "is-hidden")">
+                <li class="@(categoryCollapsed ? "channelCategory-closed" : null)"
+                    @onclick="() => ToggleCategory(category)">
+                    @category.Name
+                </li>
+                @foreach (var channel in category.Channels)
+                {
+                    var hidden = categoryCollapsed || !IsVisible(channel.Audience) ? "is-hidden" : null;
+
+                    <li class="@hidden">
+                        <a class="channel"
+                           href="https://discordapp.com/channels/@Content.ServerId/@channel.Id">@channel.Name</a>
+                    </li>
+                    <li class="@hidden">@channel.Description</li>
+                }
+            </ul>
+        }
+
+    </article>
+</section>
+
+@code {
+
+    private readonly HashSet<string> _collapsedCategories = [];
+
+    private IJSObjectReference? _module;
+    private DotNetObjectReference<ChannelsSection>? _selfReference;
+
+    private bool _collapsed = true;
+    private bool _showVerified = true;
+    private bool _showNsfw;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender || !RendererInfo.IsInteractive)
+        {
+            return;
+        }
+
+        _module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", Interop.ModulePath);
+        _selfReference = DotNetObjectReference.Create(this);
+
+        await _module.InvokeVoidAsync("watchChannelLinks", _selfReference);
+    }
+
+    /// <summary>
+    /// Called from JavaScript when a channel reference elsewhere on the page is clicked. The browser
+    /// handles the scrolling, this only makes sure the section is not collapsed on arrival.
+    /// </summary>
+    [JSInvokable]
+    public void OnChannelRequested()
+    {
+        if (!_collapsed)
+        {
+            return;
+        }
+
+        _collapsed = false;
+        StateHasChanged();
+    }
+
+    private bool IsVisible(ChannelAudience audience)
+    {
+        if (audience.HasFlag(ChannelAudience.Nsfw) && !_showNsfw)
+        {
+            return false;
+        }
+
+        return !audience.HasFlag(ChannelAudience.Verified) || _showVerified;
+    }
+
+    private void Toggle()
+    {
+        _collapsed = !_collapsed;
+    }
+
+    private void ToggleCategory(ChannelCategory category)
+    {
+        if (!_collapsedCategories.Remove(category.Name))
+        {
+            _collapsedCategories.Add(category.Name);
+        }
+    }
+
+    private void ToggleVerified()
+    {
+        _showVerified = !_showVerified;
+
+        // NSFW channels are verified only, so hiding verified channels hides those too.
+        if (!_showVerified)
+        {
+            _showNsfw = false;
+        }
+    }
+
+    private void ToggleNsfw()
+    {
+        _showNsfw = !_showNsfw;
+
+        if (_showNsfw)
+        {
+            _showVerified = true;
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_module is not null)
+        {
+            try
+            {
+                await _module.InvokeVoidAsync("stopWatchingChannelLinks");
+                await _module.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+                // The circuit is already gone, so there is nothing left to clean up.
+            }
+        }
+
+        _selfReference?.Dispose();
+    }
+
+}

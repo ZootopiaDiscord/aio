@@ -4,3 +4,4 @@
     restart: unless-stopped
     environment:
       BOT_TOKEN:
+      INVITE_URL: https://discord.gg/tfXMdhR8bu

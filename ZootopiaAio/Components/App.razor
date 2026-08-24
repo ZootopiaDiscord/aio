@@ -1,0 +1,38 @@
+@*
+    Root component. It lives in the host rather than in ZootopiaAio.Web because ImportMap and
+    ResourcePreloader come from ASP.NET Core, which a WebAssembly compatible library cannot reference.
+*@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"/>
+    <base href="/"/>
+
+    <meta name="description" content="A Discord server for the Zootopia community. Join us today!"/>
+    <meta name="theme-color" content="#99D3FB"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="Zootopia Community Server"/>
+    <meta name="twitter:description" content="Join us today!"/>
+    <meta name="twitter:image" content="https://i.imgur.com/VGngdSu.png"/>
+    <meta name="keywords" content="Zootopia,community,Discord,Discord Server"/>
+    <meta name="google-site-verification" content="vMZ8ItuIiJ1Y4OqV9eB8zMyIMYtpAUQNhSqiEWqGwIY"/>
+
+    <ResourcePreloader/>
+    <link rel="icon" href="@Assets[$"{WebAssets.Root}/img/favicon.png"]"/>
+    <link rel="stylesheet" href="@Assets[$"{WebAssets.Root}/style.css"]"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"/>
+    <link rel="stylesheet" href="@Assets["ZootopiaAio.styles.css"]"/>
+    <ImportMap/>
+    <HeadOutlet/>
+</head>
+
+<body>
+<Routes/>
+<ReconnectModal/>
+<script src="@Assets["_framework/blazor.web.js"]"></script>
+</body>
+
+</html>

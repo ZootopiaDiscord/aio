@@ -1,0 +1,125 @@
+.roles {
+    --role-color-zootopian: #72af80;
+    --role-color-nighthowler: #0B2CFB;
+    --role-color-zpd: #3C8DAE;
+    --role-color-hustler: #F283FC;
+    --role-color-weeb: #F78B24;
+}
+
+#roles-container {
+    /* Fallback for browsers without native masonry: rows of equal-height gaps. */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+/* Native masonry (CSS Grid Level 3 lanes, Safari 26.4+), which is what the
+   jQuery Masonry layout did: each card packs into the shortest column. */
+@supports (display: grid-lanes) {
+    #roles-container {
+        display: grid-lanes;
+        grid-template-columns: repeat(auto-fill, 250px);
+        justify-content: center;
+    }
+
+    .role {
+        width: auto;
+    }
+}
+
+.role {
+    box-sizing: border-box;
+    position: relative;
+    padding: var(--bot-margin);
+    width: 250px;
+
+    background: #36393E;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(32, 34, 37, 0.6);
+    border-radius: 5px;
+
+    /* The description is raw markup from site.json, so it carries no scope of its own. */
+
+    & ul {
+        margin-bottom: 0;
+    }
+}
+
+.role-top {
+    display: inline-block;
+    position: relative;
+    margin-bottom: var(--bot-margin);
+    border: 1px solid rgba(255, 255, 255, 1);
+    border-radius: 100px;
+    padding: 4px 12px 4px 30px;
+
+    /* role colour dot */
+
+    &:before {
+        position: absolute;
+        content: '';
+        top: 50%;
+        left: 8px;
+        transform: translate(0, -50%);
+        width: 16px;
+        height: 16px;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 100%;
+    }
+}
+
+#role-zootopian .role-top {
+    border-color: var(--role-color-zootopian);
+
+    &:before {
+        background: var(--role-color-zootopian);
+    }
+}
+
+#role-nighthowler .role-top {
+    border-color: var(--role-color-nighthowler);
+
+    &:before {
+        background: var(--role-color-nighthowler);
+    }
+}
+
+#role-zootopianpolice .role-top {
+    border-color: var(--role-color-zpd);
+
+    &:before {
+        background: var(--role-color-zpd);
+    }
+}
+
+#role-hustler .role-top {
+    border-color: var(--role-color-hustler);
+
+    &:before {
+        background: var(--role-color-hustler);
+    }
+}
+
+#role-weeb .role-top {
+    border-color: var(--role-color-weeb);
+
+    &:before {
+        background: var(--role-color-weeb);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .role {
+        background: white;
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(185, 187, 190, 0.3);
+    }
+
+    .role-top {
+        border-color: #B9BBBE;
+
+        &:before {
+            background: #B9BBBE;
+        }
+    }
+}

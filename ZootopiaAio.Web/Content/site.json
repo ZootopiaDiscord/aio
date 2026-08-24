@@ -1,0 +1,314 @@
+{
+  "lastRevision": "10 Jun 2023",
+  "serverId": "164188105031680000",
+  "rules": [
+    {
+      "text": "Be respectful to everyone in the community",
+      "subItems": [
+        "No racism, sexism, homophobic, transphobic or xenophobic remarks, joking or not.",
+        "If you have an opinion, say it respectfully and back it up with reason. Refrain from insults and trash talking."
+      ]
+    },
+    {
+      "text": "Keep chat clean and civil",
+      "subItems": [
+        "No unrelated and/or out-of-context memes. If it does not contribute to the current conversation in a channel, do not post it.",
+        "No spamming. This includes, but is not limited to, meaningless text, emoji, images, or advertisements."
+      ]
+    },
+    {
+      "text": "Keep images and discussion in their respective categories and channels",
+      "subItems": [
+        "No pornographic or suggestive material or discussion outside of the NSFW channel category. If you have to ask yourself, if what you want to post is NSFW, the answer is yes."
+      ]
+    },
+    {
+      "text": "Be mindful of a few taboos",
+      "subItems": [
+        "Politics are strictly banned. Political discussions never end well and no one leaves happy.",
+        "Do not spoil any kind of media, no matter its age. Simply use spoiler tags. <command>||spoiler here||</>",
+        "Do <u>not</u> ping the Zootopian Police role except for emergencies such as a raid or troll. You may always ping or DM individual ZPD members when needed."
+      ]
+    },
+    {
+      "text": "Keep account usernames and avatars clean",
+      "subItems": [
+        "No (overtly) offensive and/or NSFW avatars. Cropped NSFW images are fine as long as the avatar itself is SFW.",
+        "Keep illegible and/or obstructing characters in usernames and chat messages to an absolute minimum. Either your username or nickname must consist entirely of the modern Latin Alphabet."
+      ]
+    }
+  ],
+  "otherRules": [
+    "Always respect Discord's Terms of Service and do not try to abuse or exploit any of the bots."
+  ],
+  "policeRules": [
+    {
+      "text": "These rules are enforced by ZPD interpretation and discretion.",
+      "subItems": []
+    },
+    {
+      "text": "The ZPD will provide a rationale for any actions taken but their decisions are final.",
+      "subItems": []
+    },
+    {
+      "text": "The ZPD have full discretion to:",
+      "subItems": [
+        "change channel topic.",
+        "remove content or users deemed unpleasant or unwelcome by community members.",
+        "take action if the rules are pushed or bent, including openly arguing over punishments or instructions."
+      ]
+    },
+    {
+      "text": "Ban appeals may be sent via email to zpd (at) zootopiadiscord (dot) com at any time. Please include your Discord username and tag (User#0420) and open friend requests so we can get back to you directly.",
+      "subItems": []
+    }
+  ],
+  "channelCategories": [
+    {
+      "name": "General",
+      "audience": "Everyone",
+      "channels": [
+        {
+          "name": "general",
+          "id": "164188105031680000",
+          "description": "General discussion",
+          "audience": "Everyone"
+        },
+        {
+          "name": "lounge",
+          "id": "201189463374692352",
+          "description": "A cozy corner for verified members. Looking for uninterrupted conversation? This is the place.",
+          "audience": "Verified"
+        },
+        {
+          "name": "zootopia",
+          "id": "201189463374692352",
+          "description": "Zootopia and related discussion only",
+          "audience": "Everyone"
+        }
+      ]
+    },
+    {
+      "name": "Art",
+      "audience": "Everyone",
+      "channels": [
+        {
+          "name": "art-creations",
+          "id": "187758250723115009",
+          "description": "Any content you made yourself or content that includes your character(s) goes here!",
+          "audience": "Everyone"
+        },
+        {
+          "name": "art-zootopia",
+          "id": "837216088005541888",
+          "description": "Any non-self made Zootopia related content goes in here!",
+          "audience": "Everyone"
+        },
+        {
+          "name": "art-other",
+          "id": "837216151134011412",
+          "description": "Any non-self made non-Zootopian content goes in here!",
+          "audience": "Everyone"
+        }
+      ]
+    },
+    {
+      "name": "Hobbies",
+      "audience": "Everyone",
+      "channels": [
+        {
+          "name": "writing",
+          "id": "182625034487988225",
+          "description": "For writers and lovers of writing",
+          "audience": "Everyone"
+        },
+        {
+          "name": "movies-music-tv",
+          "id": "264311545008226314",
+          "description": "Media discussion - TV, Movies, Music, Books, etc",
+          "audience": "Everyone"
+        },
+        {
+          "name": "anime",
+          "id": "592053536574013665",
+          "description": "Japanese media discussion - Anime, Manga, Light Novels, etc (requires role)",
+          "audience": "Verified"
+        },
+        {
+          "name": "nerdcorner",
+          "id": "289242794051108864",
+          "description": "Discuss coding / math / science and related topics",
+          "audience": "Everyone"
+        },
+        {
+          "name": "mechanics",
+          "id": "738465592876466246",
+          "description": "Discuss methods of transportation; weaponry, armaments; robots and other mechanical crafts",
+          "audience": "Everyone"
+        },
+        {
+          "name": "gaming",
+          "id": "178728057237012480",
+          "description": "Gaming news and discussion",
+          "audience": "Everyone"
+        }
+      ]
+    },
+    {
+      "name": "NSFW",
+      "audience": "Verified, Nsfw",
+      "channels": [
+        {
+          "name": "nsfw-chat",
+          "id": "164417080911855616",
+          "description": "NSFW discussion. NSFW specific rules are pinned.",
+          "audience": "Everyone"
+        },
+        {
+          "name": "nsfw-creations",
+          "id": "837232416023379988",
+          "description": "Any NSFW content you made yourself or NSFW content that includes your character(s) goes here!",
+          "audience": "Everyone"
+        },
+        {
+          "name": "nsfw-zootopia",
+          "id": "339778846565859328",
+          "description": "Any non-self made Zootopia related NSFW content goes in here!",
+          "audience": "Everyone"
+        },
+        {
+          "name": "nsfw-other",
+          "id": "837232495681994783",
+          "description": "Any non-self made non-Zootopian NSFW content goes in here!",
+          "audience": "Everyone"
+        }
+      ]
+    },
+    {
+      "name": "Meta",
+      "audience": "Everyone",
+      "channels": [
+        {
+          "name": "events",
+          "id": "210760739940597761",
+          "description": "Various events including movie nights and gaming sessions",
+          "audience": "Verified"
+        },
+        {
+          "name": "feedback",
+          "id": "331973980959277066",
+          "description": "Leave any serious feedback and suggestions you have. Suggestions server events, like fanfic/art competitions, also go here.",
+          "audience": "Verified"
+        },
+        {
+          "name": "gazelle-backstage",
+          "id": "202857406189797376",
+          "description": "Please use bot commands mostly in here",
+          "audience": "Everyone"
+        },
+        {
+          "name": "casino",
+          "id": "301717155454386178",
+          "description": "Use Gazelle's Games/Gambling commands here",
+          "audience": "Everyone"
+        }
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "name": "Zootopian",
+      "description": "Verified members of the server. Grants access to the full selection of channels and other permissions. The system is explained in <channel>verification</>."
+    },
+    {
+      "name": "Hustler",
+      "description": "Nitro boosting members of the server. Thank you so much for your contribution!"
+    },
+    {
+      "name": "Zootopian Police",
+      "description": "Moderators of the server. They will be in charge of ensuring this server remains a peaceful, constructive and enjoyable place for everyone. Temporary channels can be requested from any member of the ZPD if you wish to have a separate channel for discussion. If you find any disturbances in the chatroom, please message a member of the ZPD directly."
+    },
+    {
+      "name": "Event Groups",
+      "description": "We have roles for the different events on our server. They are all self-assignable and will result in getting notified for the selected type of event.<br><br>Currently these are:<br><ul><li><command>movie-night</></li><li><command>party-games</></li><li><command>nsfw-party-games</></li></ul>"
+    },
+    {
+      "name": "Nighthowler",
+      "description": "Access to NSFW channels. To request access, DM any online member of the ZPD."
+    },
+    {
+      "name": "Weeb",
+      "description": "Self-assignable role to get access to the anime channel. Some rules apply and are pinned in the channel."
+    }
+  ],
+  "bots": [
+    {
+      "name": "Gazelle",
+      "originalName": "Nadeko",
+      "image": "gazelle.jpg",
+      "purposes": [
+        "Casino",
+        "Logging"
+      ],
+      "description": "Gazelle is our oldest bot. Here basically from the beginning, she has helped us in many ways over time. We use her mostly for moderation purposes these days. She's also the casino's manager though."
+    },
+    {
+      "name": "Judy Hopps",
+      "originalName": "Sweetie",
+      "image": "judy-hopps.jpg",
+      "purposes": [
+        "Collections",
+        "Event Scheduling",
+        "Anti-Spam",
+        "Anti-Raid",
+        "Miscellaneous Moderation"
+      ],
+      "description": "We added Sweetie to help with frequent raids and spam management as a whole. Her collections have also become a loved part of the server."
+    }
+  ],
+  "minorBots": [
+    {
+      "name": "DISBOARD",
+      "image": "disboard.jpg",
+      "description": "Refreshes our DISBOARD listing"
+    }
+  ],
+  "moderators": [
+    {
+      "name": "The Australian",
+      "discordId": "403706285578518538"
+    },
+    {
+      "name": "coggy9",
+      "discordId": "89482334021107712"
+    },
+    {
+      "name": "Eldritch_kitten",
+      "discordId": "377644298134355978"
+    },
+    {
+      "name": "EthanRedOtter",
+      "discordId": "407000153199869964"
+    },
+    {
+      "name": "Flying Endeavor",
+      "discordId": "210762023984824320"
+    },
+    {
+      "name": "Julliant",
+      "discordId": "135631520525189120"
+    },
+    {
+      "name": "LeakyOwl",
+      "discordId": "261592960620167179"
+    },
+    {
+      "name": "polikerski",
+      "discordId": "182593971896188930"
+    },
+    {
+      "name": "Telly",
+      "discordId": "210522341363417089"
+    }
+  ]
+}
