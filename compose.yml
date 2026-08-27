@@ -1,6 +1,6 @@
 ﻿services:
   aio:
-    image: ghcr.io/zootopiadiscord/aio:1.0.0
+    image: ghcr.io/zootopiadiscord/aio:feature-sunset
     restart: unless-stopped
     environment:
       BOT_TOKEN:
