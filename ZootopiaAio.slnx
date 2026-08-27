@@ -1,6 +1,7 @@
 <Solution>
     <Folder Name="/Solution Items/">
         <File Path="compose.local.yml"/>
+        <File Path="compose.sunset.yml"/>
         <File Path="compose.yml"/>
     </Folder>
     <Project Path="ZootopiaAio.Bot/ZootopiaAio.Bot.csproj"/>

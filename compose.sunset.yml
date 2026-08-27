@@ -1,0 +1,10 @@
+﻿services:
+  aio:
+    networks:
+      - reverse-proxy
+    labels:
+      caddy: zoot.tawmy.dev
+
+networks:
+  reverse-proxy:
+    external: true
