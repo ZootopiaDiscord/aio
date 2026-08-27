@@ -5,3 +5,5 @@
     environment:
       BOT_TOKEN:
       INVITE_URL: https://discord.gg/tfXMdhR8bu
+    labels:
+      caddy.reverse_proxy: "{{upstreams 8080}}"
