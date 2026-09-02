@@ -1,0 +1,14 @@
+FROM mcr.microsoft.com/dotnet/aspnet:11.0.0-preview.7
+
+COPY publish/app /app
+WORKDIR /app
+
+ENV ASPNETCORE_CONTENTROOT=/app \
+    ClientApps__app__EndpointsManifest=/app/ZootopiaAio.App.staticwebassets.endpoints.json \
+    Gateway__HttpsRedirection__Enabled=false \
+    ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
+
+EXPOSE 8080
+USER $APP_UID
+
+ENTRYPOINT ["dotnet", "/app/gateway/blazor-gateway.dll"]

@@ -7,3 +7,9 @@
       INVITE_URL: https://discord.gg/tfXMdhR8bu
     labels:
       caddy.reverse_proxy: "{{upstreams 8080}}"
+
+  app:
+    image: ghcr.io/zootopiadiscord/aio/app:1.0.0
+    restart: unless-stopped
+    labels:
+      caddy.reverse_proxy: "{{upstreams 8080}}"

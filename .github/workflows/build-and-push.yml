@@ -16,7 +16,23 @@ permissions:
 
 jobs:
   build:
+    name: build (${{ matrix.name }})
     runs-on: ubuntu-26.04
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - name: aio
+            image: ${{ github.event.repository.name }}
+            dockerfile: ZootopiaAio/Dockerfile.CI
+            publish: |
+              dotnet publish ZootopiaAio/ZootopiaAio.csproj -c Release -r linux-x64 -o publish/amd64 /p:UseAppHost=false
+              dotnet publish ZootopiaAio/ZootopiaAio.csproj -c Release -r linux-arm64 -o publish/arm64 /p:UseAppHost=false
+          - name: app
+            image: ${{ github.event.repository.name }}/app
+            dockerfile: ZootopiaAio.App/Dockerfile.CI
+            publish: |
+              dotnet publish ZootopiaAio.App/ZootopiaAio.App.csproj -c Release -p:PublishBlazorGateway=true -o publish/app
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -26,22 +42,21 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: |
+            10.0.x
+            11.0.100-preview.7.26381.103
           cache: true
           cache-dependency-path: '**/*.csproj'
 
-      - name: Publish (amd64)
-        run: dotnet publish ZootopiaAio/ZootopiaAio.csproj -c Release -r linux-x64 -o publish/amd64 /p:UseAppHost=false
-
-      - name: Publish (arm64)
-        run: dotnet publish ZootopiaAio/ZootopiaAio.csproj -c Release -r linux-arm64 -o publish/arm64 /p:UseAppHost=false
+      - name: Publish
+        run: ${{ matrix.publish }}
 
       - name: Extract Docker metadata
         id: metadata
         uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
         with:
           images: |
-            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
+            ghcr.io/${{ github.repository_owner }}/${{ matrix.image }}
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -66,7 +81,7 @@ jobs:
         uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
         with:
           context: .
-          file: ZootopiaAio/Dockerfile.CI
+          file: ${{ matrix.dockerfile }}
           platforms: linux/amd64,linux/arm64
           provenance: false
           push: ${{ github.event_name != 'pull_request' }}

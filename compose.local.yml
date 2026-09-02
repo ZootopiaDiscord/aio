@@ -6,3 +6,11 @@
       dockerfile: ZootopiaAio/Dockerfile
     labels:
       - dev.orbstack.domains=zoot.local
+
+  app:
+    image: zootopia-aio-app
+    build:
+      context: .
+      dockerfile: ZootopiaAio.App/Dockerfile
+    labels:
+      - dev.orbstack.domains=app.zoot.local

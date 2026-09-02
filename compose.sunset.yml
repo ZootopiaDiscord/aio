@@ -5,6 +5,12 @@
     labels:
       caddy: zoot.tawmy.dev
 
+  app:
+    networks:
+      - reverse-proxy
+    labels:
+      caddy: app.zoot.tawmy.dev
+
 networks:
   reverse-proxy:
     external: true

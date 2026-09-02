@@ -18,4 +18,39 @@
         <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <PublishBlazorGateway Condition="'$(PublishBlazorGateway)' == ''">true</PublishBlazorGateway>
+        <BlazorGatewayPublishDir Condition="'$(BlazorGatewayPublishDir)' == ''">gateway</BlazorGatewayPublishDir>
+    </PropertyGroup>
+
+    <!--
+        The Gateway ships as a tools-only package: its targets rewrite RunCommand so 'dotnet run' and IDE run actions
+        launch the host, but the SDK has no support for publishing it. Without this target 'dotnet publish' yields a
+        payload with no host to serve it.
+    -->
+    <Target Name="PublishBlazorGatewayHost" AfterTargets="Publish" Condition="'$(PublishBlazorGateway)' == 'true'">
+        <Error Condition="'$(_BlazorGatewayDll)' == '' Or !Exists('$(_BlazorGatewayDll)')"
+               Text="Could not locate the Blazor Gateway host. Expected _BlazorGatewayDll to point at an existing blazor-gateway.dll, but it was '$(_BlazorGatewayDll)'. Restore the Microsoft.AspNetCore.Components.Gateway package, or set -p:PublishBlazorGateway=false to publish without a host."/>
+
+        <PropertyGroup>
+            <_BlazorGatewayToolsDir>$([System.IO.Path]::GetFullPath($([System.IO.Path]::GetDirectoryName('$(_BlazorGatewayDll)'))))</_BlazorGatewayToolsDir>
+        </PropertyGroup>
+
+        <ItemGroup>
+            <_BlazorGatewayHostFile Include="$(_BlazorGatewayToolsDir)/**/*"/>
+        </ItemGroup>
+
+        <Copy SourceFiles="@(_BlazorGatewayHostFile)"
+              DestinationFiles="@(_BlazorGatewayHostFile->'$(PublishDir)$(BlazorGatewayPublishDir)/%(RecursiveDir)%(Filename)%(Extension)')"
+              SkipUnchangedFiles="true"/>
+
+        <Message Importance="high" Text="Blazor Gateway host -> $(PublishDir)$(BlazorGatewayPublishDir)/"/>
+    </Target>
+
 </Project>
