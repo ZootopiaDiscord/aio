@@ -4,3 +4,5 @@
     build:
       context: .
       dockerfile: ZootopiaAio/Dockerfile
+    labels:
+      - dev.orbstack.domains=zoot.local

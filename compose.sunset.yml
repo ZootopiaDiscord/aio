@@ -3,7 +3,7 @@
     networks:
       - reverse-proxy
     labels:
-      caddy: zoot.tawmy.dev
+      caddy: zootopia.chat
 
 networks:
   reverse-proxy:
