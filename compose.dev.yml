@@ -1,13 +1,13 @@
 ﻿services:
   aio:
-    image: ghcr.io/zootopiadiscord/aio:main
+    image: ghcr.io/zootopiadiscord/aio:feature-app
     networks:
       - reverse-proxy
     labels:
       caddy: zoot.tawmy.dev
 
   app:
-    image: ghcr.io/zootopiadiscord/aio/app:main
+    image: ghcr.io/zootopiadiscord/aio/app:feature-app
     networks:
       - reverse-proxy
     labels:
