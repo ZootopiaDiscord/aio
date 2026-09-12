@@ -9,7 +9,7 @@
     networks:
       - reverse-proxy
     labels:
-      caddy: app.zoot.tawmy.dev
+      caddy: app.zootopia.chat
 
 networks:
   reverse-proxy:
