@@ -4,6 +4,9 @@
     build:
       context: .
       dockerfile: ZootopiaAio/Dockerfile
+    environment:
+      KEYCLOAK_AUTHORITY: https://auth.zoot.local/realms/main
+      KEYCLOAK_CLIENT_ID: aio-local
     labels:
       - dev.orbstack.domains=zoot.local
 

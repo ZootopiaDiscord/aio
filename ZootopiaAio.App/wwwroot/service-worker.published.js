@@ -11,6 +11,12 @@ const cacheName = `${cacheNamePrefix}${self.assetsManifest.version}`;
 const offlineAssetsInclude = [/\.dll$/, /\.pdb$/, /\.wasm/, /\.html/, /\.js$/, /\.json$/, /\.css$/, /\.woff$/, /\.png$/, /\.jpe?g$/, /\.gif$/, /\.ico$/, /\.blat$/, /\.dat$/, /\.webmanifest$/];
 const offlineAssetsExclude = [/^service-worker\.js$/];
 
+// Paths the BFF owns, which must always reach the network. /login and the OIDC callbacks are document navigations,
+// and onFetch below answers those from the cached index.html.
+// /bff/* carries the session cookie and must never be served from a cache.
+// Keep in sync with gateway/appsettings.json, which routes these same paths.
+const serverPaths = [/^\/login$/, /^\/logout$/, /^\/bff\//, /^\/signin-oidc$/, /^\/signout-/];
+
 // Replace with your base path if you are hosting on a subfolder. Ensure there is a trailing '/'.
 const base = "/";
 const baseUrl = new URL(base, self.origin);
@@ -38,6 +44,11 @@ async function onActivate(event) {
 }
 
 async function onFetch(event) {
+    const url = new URL(event.request.url);
+    if (url.origin === self.origin && serverPaths.some(pattern => pattern.test(url.pathname))) {
+        return fetch(event.request);
+    }
+
     let cachedResponse = null;
     if (event.request.method === 'GET') {
         // For all navigation requests, try to serve index.html from cache,

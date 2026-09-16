@@ -1,6 +1,7 @@
 ﻿services:
   aio:
     networks:
+      - default
       - reverse-proxy
     labels:
       caddy: zootopia.chat

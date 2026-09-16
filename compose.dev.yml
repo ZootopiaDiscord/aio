@@ -1,7 +1,10 @@
 ﻿services:
   aio:
     image: ghcr.io/zootopiadiscord/aio:feature-app
+    environment:
+      KEYCLOAK_CLIENT_ID: aio-dev
     networks:
+      - default
       - reverse-proxy
     labels:
       caddy: zoot.tawmy.dev
