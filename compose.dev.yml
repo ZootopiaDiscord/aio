@@ -1,6 +1,8 @@
 ﻿services:
   aio:
     image: ghcr.io/zootopiadiscord/aio:main
+    environment:
+      KEYCLOAK_CLIENT_ID: aio
     networks:
       - default
       - reverse-proxy

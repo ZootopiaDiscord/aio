@@ -11,6 +11,8 @@ COPY ["ZootopiaAio/ZootopiaAio.csproj", "ZootopiaAio/"]
 COPY ["ZootopiaAio.Bot/ZootopiaAio.Bot.csproj", "ZootopiaAio.Bot/"]
 COPY ["ZootopiaAio.Web/ZootopiaAio.Web.csproj", "ZootopiaAio.Web/"]
 COPY ["ZootopiaAio.Web.Client/ZootopiaAio.Web.Client.csproj", "ZootopiaAio.Web.Client/"]
+COPY ["AspNetCoreExtensions/AspNetCoreExtensions.Keycloak/AspNetCoreExtensions.Keycloak.csproj", \
+      "AspNetCoreExtensions/AspNetCoreExtensions.Keycloak/"]
 RUN dotnet restore "ZootopiaAio/ZootopiaAio.csproj"
 COPY . .
 WORKDIR "/src/ZootopiaAio"
