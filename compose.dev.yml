@@ -3,6 +3,8 @@
     image: ghcr.io/zootopiadiscord/aio:feature-app
     environment:
       KEYCLOAK_CLIENT_ID: aio-dev
+    volumes:
+      - /opt/certificates/zoot-aio:/run/secrets/certificates:ro
     networks:
       - default
       - reverse-proxy
