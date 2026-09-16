@@ -44,7 +44,7 @@ jobs:
         with:
           dotnet-version: |
             10.0.x
-            11.0.100-preview.7.26381.103
+            11.0.100-rc.1.26425.128
           cache: true
           cache-dependency-path: '**/*.csproj'
 

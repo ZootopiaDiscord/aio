@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:11.0.100-preview.7 AS build
+FROM mcr.microsoft.com/dotnet/sdk:11.0.100-rc.1 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
@@ -13,7 +13,7 @@ RUN dotnet publish "ZootopiaAio.App/ZootopiaAio.App.csproj" \
         -p:PublishBlazorGateway=true \
         -o /out/app
 
-FROM mcr.microsoft.com/dotnet/aspnet:11.0.0-preview.7 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:11.0.0-rc.1 AS final
 
 COPY --from=build /out/app /app
 WORKDIR /app
