@@ -2,6 +2,11 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
+<AuthorizeView>
+    <Authorized>
+        <QuickGrid Items="@context.User.Claims.AsQueryable()">
+            <PropertyColumn Property="@(x => x.Type)" Sortable="true" IsDefaultSortColumn="true"/>
+            <PropertyColumn Property="@(x => x.Value)" Sortable="true"/>
+        </QuickGrid>
+    </Authorized>
+</AuthorizeView>
