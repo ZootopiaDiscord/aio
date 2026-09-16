@@ -1,5 +1,7 @@
 ﻿services:
   aio:
+    volumes:
+      - /opt/certificates/aio:/run/secrets/certificates:ro
     networks:
       - default
       - reverse-proxy
