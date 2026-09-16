@@ -2,6 +2,7 @@
   aio:
     image: ghcr.io/zootopiadiscord/aio:main
     networks:
+      - default
       - reverse-proxy
     labels:
       caddy: zoot.tawmy.dev
