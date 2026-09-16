@@ -24,6 +24,10 @@
         </Content>
     </ItemGroup>
 
+    <ItemGroup>
+        <Content Include="..\gateway\appsettings.json" Link="appsettings.json" CopyToPublishDirectory="PreserveNewest"/>
+    </ItemGroup>
+
     <PropertyGroup>
         <PublishBlazorGateway Condition="'$(PublishBlazorGateway)' == ''">true</PublishBlazorGateway>
         <BlazorGatewayPublishDir Condition="'$(BlazorGatewayPublishDir)' == ''">gateway</BlazorGatewayPublishDir>
