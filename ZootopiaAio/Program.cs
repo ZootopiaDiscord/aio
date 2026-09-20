@@ -38,6 +38,6 @@ app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(Routes).Assembly);
 
-app.Logger.LogInformation("Winddancer, Version {v}", version.ToString(3));
+app.Logger.LogInformation("Zootopia AIO, Version {v}", version.ToString(3));
 
 app.Run();
