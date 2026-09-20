@@ -23,7 +23,7 @@
       caddy.reverse_proxy: "{{upstreams 8080}}"
 
   app:
-    image: ghcr.io/zootopiadiscord/aio/app:1.0.0
+    image: ghcr.io/zootopiadiscord/aio/app:main
     restart: unless-stopped
     environment:
       Logging__LogLevel__Microsoft.AspNetCore.DataProtection: Error
