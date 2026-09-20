@@ -1,0 +1,23 @@
+﻿services:
+  aio:
+    image: ghcr.io/zootopiadiscord/aio:main
+    environment:
+      KEYCLOAK_CLIENT_ID: aio-dev
+    volumes:
+      - /opt/certificates/zoot-aio:/run/secrets/certificates:ro
+    networks:
+      - default
+      - reverse-proxy
+    labels:
+      caddy: zoot.tawmy.dev
+
+  app:
+    image: ghcr.io/zootopiadiscord/aio/app:main
+    networks:
+      - reverse-proxy
+    labels:
+      caddy: app.zoot.tawmy.dev
+
+networks:
+  reverse-proxy:
+    external: true

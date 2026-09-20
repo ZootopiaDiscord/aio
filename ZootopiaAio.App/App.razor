@@ -1,0 +1,26 @@
+﻿@using ZootopiaAio.App.Pages
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly" NotFoundPage="typeof(NotFound)">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    @if (context.User.Identity?.IsAuthenticated is true)
+                    {
+                        <h1>Not allowed</h1>
+                        <p>Your account does not have access to this page.</p>
+                    }
+                    else
+                    {
+                        <h1>Sign in</h1>
+                        <p>This page needs you to be signed in.</p>
+                        <SignInButton/>
+                    }
+                </NotAuthorized>
+                <Authorizing>
+                    <p>Checking your session…</p>
+                </Authorizing>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
+        </Found>
+    </Router>
+</CascadingAuthenticationState>

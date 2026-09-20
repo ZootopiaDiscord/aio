@@ -2,8 +2,58 @@
   aio:
     image: ghcr.io/zootopiadiscord/aio:main
     restart: unless-stopped
+    depends_on:
+      valkey:
+        condition: service_healthy
     environment:
-      BOT_TOKEN:
+      BOT_TOKEN: ${BOT_TOKEN:?BOT_TOKEN must be set}
       INVITE_URL: https://discord.gg/tfXMdhR8bu
+      KEYCLOAK_AUTHORITY: https://auth.zootopia.chat/realms/main
+      KEYCLOAK_CLIENT_ID: aio
+      KEYCLOAK_CERTIFICATE: /run/secrets/certificates/client.pem
+      KEYCLOAK_PRIVATE_KEY: /run/secrets/certificates/client.key
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: true
+      VALKEY_HOST: valkey
+      VALKEY_PASSWORD: ${VALKEY_PASSWORD:?VALKEY_PASSWORD must be set}
+      DATAPROTECTION_CERTIFICATE: /run/secrets/certificates/data-protection.pem
+      DATAPROTECTION_PRIVATE_KEY: /run/secrets/certificates/data-protection.key
+    volumes:
+      - ./certificates:/run/secrets/certificates:ro
     labels:
       caddy.reverse_proxy: "{{upstreams 8080}}"
+
+  app:
+    image: ghcr.io/zootopiadiscord/aio/app:1.0.0
+    restart: unless-stopped
+    environment:
+      Logging__LogLevel__Microsoft.AspNetCore.DataProtection: Error
+    labels:
+      caddy.reverse_proxy: "{{upstreams 8080}}"
+
+  valkey:
+    image: valkey/valkey:9.1
+    restart: unless-stopped
+    environment:
+      REDISCLI_AUTH: ${VALKEY_PASSWORD:?} # auth for the healthcheck's valkey-cli, keeps it off the cmdline
+    command:
+      - valkey-server
+      - --requirepass
+      - ${VALKEY_PASSWORD:?}
+      - --appendonly
+      - "yes"
+      # volatile-lru only evicts keys with a TTL (sessions); the DP key ring
+      # and its rotation marker are stored without one and must never be evicted
+      - --maxmemory
+      - 256mb
+      - --maxmemory-policy
+      - volatile-lru
+    volumes:
+      - valkey-data:/data
+    healthcheck:
+      test: [ "CMD-SHELL", "valkey-cli ping | grep -q PONG" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  valkey-data:

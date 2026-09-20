@@ -1,0 +1,11 @@
+<AuthorizeView>
+    <Authorized>
+        <span>Signed in as @context.User.Identity?.Name</span>
+        <form action="@($"{BffPaths.Logout}?returnUrl=%2F")" method="post">
+            <button type="submit">Sign out</button>
+        </form>
+    </Authorized>
+    <NotAuthorized>
+        <SignInButton/>
+    </NotAuthorized>
+</AuthorizeView>

@@ -1,5 +1,5 @@
 {
-  "lastRevision": "10 Jun 2023",
+  "lastRevision": "17 Sep 2026",
   "serverId": "164188105031680000",
   "rules": [
     {
@@ -275,16 +275,8 @@
   ],
   "moderators": [
     {
-      "name": "The Australian",
-      "discordId": "403706285578518538"
-    },
-    {
-      "name": "coggy9",
-      "discordId": "89482334021107712"
-    },
-    {
-      "name": "Eldritch_kitten",
-      "discordId": "377644298134355978"
+      "name": "AstroError",
+      "discordId": "129352231664222208"
     },
     {
       "name": "EthanRedOtter",
@@ -295,16 +287,36 @@
       "discordId": "210762023984824320"
     },
     {
+      "name": "Fox Ink",
+      "discordId": "1471002046273552495"
+    },
+    {
       "name": "Julliant",
       "discordId": "135631520525189120"
+    },
+    {
+      "name": "Karlamon",
+      "discordId": "308938023591084034"
     },
     {
       "name": "LeakyOwl",
       "discordId": "261592960620167179"
     },
     {
+      "name": "MasterSlayer010",
+      "discordId": "403706285578518538"
+    },
+    {
+      "name": "Obsidian the Fox",
+      "discordId": "1357434693397516511"
+    },
+    {
       "name": "polikerski",
       "discordId": "182593971896188930"
+    },
+    {
+      "name": "Rare Essence",
+      "discordId": "731335655962968135"
     },
     {
       "name": "Telly",
