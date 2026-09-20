@@ -1,6 +1,6 @@
 {
-  "name": "ZootopiaAio.App",
-  "short_name": "ZootopiaAio.App",
+  "name": "Zootopia",
+  "short_name": "Zootopia",
   "id": "./",
   "start_url": "./",
   "display": "standalone",
