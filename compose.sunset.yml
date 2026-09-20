@@ -1,9 +1,18 @@
 ﻿services:
   aio:
+    volumes:
+      - /opt/certificates/aio:/run/secrets/certificates:ro
     networks:
+      - default
       - reverse-proxy
     labels:
       caddy: zootopia.chat
+
+  app:
+    networks:
+      - reverse-proxy
+    labels:
+      caddy: app.zootopia.chat
 
 networks:
   reverse-proxy:
