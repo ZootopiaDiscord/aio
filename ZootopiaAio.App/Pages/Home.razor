@@ -1,12 +1,3 @@
 ﻿@page "/"
 
 <PageTitle>Home</PageTitle>
-
-<AuthorizeView>
-    <Authorized>
-        <QuickGrid Items="@context.User.Claims.AsQueryable()">
-            <PropertyColumn Property="@(x => x.Type)" Sortable="true" IsDefaultSortColumn="true"/>
-            <PropertyColumn Property="@(x => x.Value)" Sortable="true"/>
-        </QuickGrid>
-    </Authorized>
-</AuthorizeView>

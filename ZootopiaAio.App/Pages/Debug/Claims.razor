@@ -1,0 +1,14 @@
+﻿@page "/debug/claims"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+<PageTitle>Claims</PageTitle>
+
+<h1>Claims</h1>
+
+<AuthorizeView>
+    <QuickGrid Items="@context.User.Claims.AsQueryable()">
+        <PropertyColumn Property="@(x => x.Type)" Sortable="true" IsDefaultSortColumn="true"/>
+        <PropertyColumn Property="@(x => x.Value)" Sortable="true"/>
+    </QuickGrid>
+</AuthorizeView>
