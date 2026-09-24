@@ -1,5 +1,6 @@
 using AspNetCoreExtensions.Keycloak;
 using AspNetCoreExtensions.Keycloak.Options;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace ZootopiaAio;
 
@@ -7,6 +8,7 @@ internal static class DependencyInjection
 {
     private const string KeycloakScheme = "Keycloak";
     private const string ValkeyKeyPrefix = "aio";
+    private const string GatewayHostHeader = "X-Gateway-Host";
 
     extension(IServiceCollection services)
     {
@@ -36,6 +38,15 @@ internal static class DependencyInjection
 
             services.AddKeycloakAuthentication(idp, valkey, x => x.AuthenticationScheme = KeycloakScheme);
             services.AddAuthorization();
+
+            if (configuration.GetValue<bool>(EnvironmentVariables.DevMode))
+            {
+                services.Configure<ForwardedHeadersOptions>(x =>
+                {
+                    x.ForwardedHeaders |= ForwardedHeaders.XForwardedHost;
+                    x.ForwardedHostHeaderName = GatewayHostHeader;
+                });
+            }
         }
     }
 

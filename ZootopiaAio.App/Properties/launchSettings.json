@@ -15,10 +15,35 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7253;http://localhost:5258",
+      "applicationUrl": "https://localhost:7253",
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ReverseProxy__Routes__bff__ClusterId": "bff",
+        "ReverseProxy__Routes__bff__Match__Path": "/bff/{**catch-all}",
+        "ReverseProxy__Routes__bff__Transforms__0__RequestHeader": "X-Gateway-Host",
+        "ReverseProxy__Routes__bff__Transforms__0__Set": "localhost:7253",
+        "ReverseProxy__Routes__login__ClusterId": "bff",
+        "ReverseProxy__Routes__login__Match__Path": "/login",
+        "ReverseProxy__Routes__login__Transforms__0__RequestHeader": "X-Gateway-Host",
+        "ReverseProxy__Routes__login__Transforms__0__Set": "localhost:7253",
+        "ReverseProxy__Routes__logout__ClusterId": "bff",
+        "ReverseProxy__Routes__logout__Match__Path": "/logout",
+        "ReverseProxy__Routes__logout__Transforms__0__RequestHeader": "X-Gateway-Host",
+        "ReverseProxy__Routes__logout__Transforms__0__Set": "localhost:7253",
+        "ReverseProxy__Routes__signin__ClusterId": "bff",
+        "ReverseProxy__Routes__signin__Match__Path": "/signin-oidc",
+        "ReverseProxy__Routes__signin__Transforms__0__RequestHeader": "X-Gateway-Host",
+        "ReverseProxy__Routes__signin__Transforms__0__Set": "localhost:7253",
+        "ReverseProxy__Routes__signout__ClusterId": "bff",
+        "ReverseProxy__Routes__signout__Match__Path": "/signout-callback-oidc",
+        "ReverseProxy__Routes__signout__Transforms__0__RequestHeader": "X-Gateway-Host",
+        "ReverseProxy__Routes__signout__Transforms__0__Set": "localhost:7253",
+        "ReverseProxy__Routes__rsignout__ClusterId": "bff",
+        "ReverseProxy__Routes__rsignout__Match__Path": "/signout-oidc",
+        "ReverseProxy__Routes__rsignout__Transforms__0__RequestHeader": "X-Gateway-Host",
+        "ReverseProxy__Routes__rsignout__Transforms__0__Set": "localhost:7253",
+        "ReverseProxy__Clusters__bff__Destinations__d1__Address": "https://zoot.local"
       }
     }
   }

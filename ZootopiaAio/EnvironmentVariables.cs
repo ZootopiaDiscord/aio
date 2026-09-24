@@ -41,4 +41,9 @@ internal static class EnvironmentVariables
     /// PEM RSA private key for <see cref="DataProtectionCertificate" />.
     /// </summary>
     public const string DataProtectionPrivateKey = "DATAPROTECTION_PRIVATE_KEY";
+
+    /// <summary>
+    /// Enable dev mode to read development-only http headers.
+    /// </summary>
+    public const string DevMode = "DEV_MODE";
 }
