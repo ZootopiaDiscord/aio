@@ -1,0 +1,83 @@
+<Project>
+
+    <!--
+        Downloads a pinned Tailwind standalone CLI and compiles the stylesheet before each build.
+        Watch mode for hot reload is started by the "App Watch" run configuration through TailwindWatch.
+    -->
+
+    <PropertyGroup>
+        <TailwindVersion>4.3.3</TailwindVersion>
+        <TailwindInputFile>$(MSBuildProjectDirectory)/Properties/tailwind.input.css</TailwindInputFile>
+        <TailwindOutputFile>wwwroot/css/tailwind.css</TailwindOutputFile>
+        <TailwindDir>$(MSBuildProjectDirectory)/$(BaseIntermediateOutputPath)tailwind/</TailwindDir>
+        <TailwindCli>$(TailwindDir)tailwindcss</TailwindCli>
+        <TailwindCli Condition="$([MSBuild]::IsOSPlatform('Windows'))">$(TailwindDir)tailwindcss.exe</TailwindCli>
+        <TailwindVersionStamp>$(TailwindDir)version.txt</TailwindVersionStamp>
+    </PropertyGroup>
+
+    <!-- Maps the SDK's runtime identifier to the asset names of the Tailwind GitHub releases -->
+    <PropertyGroup>
+        <_TailwindRid>$(NETCoreSdkRuntimeIdentifier)</_TailwindRid>
+        <_TailwindAsset Condition="'$(_TailwindRid)' == 'osx-arm64'">tailwindcss-macos-arm64</_TailwindAsset>
+        <_TailwindAsset Condition="'$(_TailwindRid)' == 'osx-x64'">tailwindcss-macos-x64</_TailwindAsset>
+        <_TailwindAsset Condition="'$(_TailwindRid)' == 'linux-arm64'">tailwindcss-linux-arm64</_TailwindAsset>
+        <_TailwindAsset Condition="'$(_TailwindRid)' == 'linux-x64'">tailwindcss-linux-x64</_TailwindAsset>
+        <_TailwindAsset Condition="'$(_TailwindRid)' == 'linux-musl-arm64'">tailwindcss-linux-arm64-musl</_TailwindAsset>
+        <_TailwindAsset Condition="'$(_TailwindRid)' == 'linux-musl-x64'">tailwindcss-linux-x64-musl</_TailwindAsset>
+        <_TailwindAsset Condition="'$(_TailwindRid)' == 'win-x64'">tailwindcss-windows-x64.exe</_TailwindAsset>
+    </PropertyGroup>
+
+    <Target Name="TailwindInstall">
+        <Error Condition="'$(_TailwindAsset)' == ''" Text="No Tailwind CLI available for runtime identifier '$(_TailwindRid)'."/>
+
+        <ReadLinesFromFile File="$(TailwindVersionStamp)" Condition="Exists('$(TailwindVersionStamp)')">
+            <Output TaskParameter="Lines" PropertyName="_TailwindInstalledVersion"/>
+        </ReadLinesFromFile>
+
+        <CallTarget Targets="_TailwindDownload"
+                    Condition="'$(_TailwindInstalledVersion)' != '$(TailwindVersion)' Or !Exists('$(TailwindCli)')"/>
+    </Target>
+
+    <Target Name="_TailwindDownload">
+        <DownloadFile SourceUrl="https://github.com/tailwindlabs/tailwindcss/releases/download/v$(TailwindVersion)/$(_TailwindAsset)"
+                      DestinationFolder="$(TailwindDir)"
+                      DestinationFileName="$([System.IO.Path]::GetFileName('$(TailwindCli)'))"/>
+        <Exec Condition="!$([MSBuild]::IsOSPlatform('Windows'))" Command="chmod +x &quot;$(TailwindCli)&quot;"/>
+        <WriteLinesToFile File="$(TailwindVersionStamp)" Lines="$(TailwindVersion)" Overwrite="true"/>
+    </Target>
+
+    <!-- Touched only when version or configuration change, so switching to Release regenerates the minified CSS -->
+    <Target Name="_TailwindSettingsStamp">
+        <WriteLinesToFile File="$(TailwindDir)settings.txt"
+                          Lines="$(TailwindVersion);$(Configuration)"
+                          Overwrite="true"
+                          WriteOnlyWhenDifferent="true"/>
+    </Target>
+
+    <Target Name="TailwindBuild"
+            BeforeTargets="BeforeBuild"
+            DependsOnTargets="TailwindInstall;_TailwindSettingsStamp"
+            Inputs="$(TailwindInputFile);$(TailwindDir)settings.txt;@(Content);@(Compile)"
+            Outputs="$(TailwindOutputFile)"
+            Condition="'$(DesignTimeBuild)' != 'true'">
+        <Exec Command="&quot;$(TailwindCli)&quot; -i &quot;$(TailwindInputFile)&quot; -o &quot;$(TailwindOutputFile)&quot;"
+              Condition="'$(Configuration)' != 'Release'"/>
+        <Exec Command="&quot;$(TailwindCli)&quot; -i &quot;$(TailwindInputFile)&quot; -o &quot;$(TailwindOutputFile)&quot; --minify"
+              Condition="'$(Configuration)' == 'Release'"/>
+        <!-- Tailwind leaves an unchanged output file untouched, which would keep the target out of date -->
+        <Touch Files="$(TailwindOutputFile)"/>
+    </Target>
+
+    <!-- MSBuild doesn't attach stdin, so plain watch mode would exit immediately -->
+    <Target Name="TailwindWatch" DependsOnTargets="TailwindInstall">
+        <Exec Command="&quot;$(TailwindCli)&quot; -i &quot;$(TailwindInputFile)&quot; -o &quot;$(TailwindOutputFile)&quot; --watch=always"/>
+    </Target>
+
+    <!-- On a fresh checkout the stylesheet doesn't exist yet when the wwwroot glob is evaluated -->
+    <Target Name="TailwindIncludeOutput" AfterTargets="TailwindBuild" Condition="'$(DesignTimeBuild)' != 'true'">
+        <ItemGroup>
+            <Content Include="$(TailwindOutputFile)" Exclude="@(Content)"/>
+        </ItemGroup>
+    </Target>
+
+</Project>

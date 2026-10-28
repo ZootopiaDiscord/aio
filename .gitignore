@@ -8,3 +8,4 @@ riderModule.iml
 
 /certificates/
 .env
+ZootopiaAio.App/wwwroot/css/tailwind.css

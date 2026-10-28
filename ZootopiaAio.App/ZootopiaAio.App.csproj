@@ -16,6 +16,8 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.Gateway" Version="11.0.0-rc.3.26522.148" PrivateAssets="all"/>
     </ItemGroup>
 
+    <Import Project="Tailwind.targets"/>
+
     <ItemGroup>
         <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js"/>
     </ItemGroup>
