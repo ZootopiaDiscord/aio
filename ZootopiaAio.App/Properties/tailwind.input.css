@@ -3,6 +3,8 @@
 @source "../";
 
 @theme inline {
+    --color-night: rgb(52, 52, 56);
+
     --color-zoot-light: #90DA6E;
     --color-zoot-dark: #4BB77A;
 

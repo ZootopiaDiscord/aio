@@ -18,7 +18,7 @@ public partial class UserMenu : ComponentBase
 
     private RoleStyle? PrimaryRole => RoleStyles.FirstOrDefault(r => User.IsInRole(r.Role));
 
-    private string RingClass => PrimaryRole?.RingClass ?? "inset-ring-black";
+    private string RingClass => PrimaryRole?.RingClass ?? "inset-ring-black dark:inset-ring-white";
 
     private sealed record RoleStyle(string Role, string RingClass, string TextClass);
 }
