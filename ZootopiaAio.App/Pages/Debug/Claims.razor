@@ -1,14 +1,25 @@
 ﻿@page "/debug/claims"
+@using System.Security.Claims
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize]
 
 <PageTitle>Claims</PageTitle>
-
-<h1>Claims</h1>
+<SectionContent SectionName="page-header">Claims</SectionContent>
 
 <AuthorizeView>
-    <QuickGrid Items="@context.User.Claims.AsQueryable()">
+    <QuickGrid Items="@DisplayClaims(context.User).AsQueryable()">
         <PropertyColumn Property="@(x => x.Type)" Sortable="true" IsDefaultSortColumn="true"/>
         <PropertyColumn Property="@(x => x.Value)" Sortable="true"/>
     </QuickGrid>
 </AuthorizeView>
+
+@code {
+
+    private static IEnumerable<Claim> DisplayClaims(ClaimsPrincipal user)
+    {
+        return user.Claims.Select(x => x.Type == ClaimTypes.Role
+            ? new Claim("role", x.Value, x.ValueType, x.Issuer, x.OriginalIssuer)
+            : x);
+    }
+
+}
