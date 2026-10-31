@@ -1,0 +1,12 @@
+<button @attributes="AdditionalAttributes"
+        class="px-3 py-1 rounded-lg shadow-sm cursor-pointer bg-linear-to-b from-zoot-light to-zoot-dark
+                @AdditionalClasses">@ChildContent</button>
+
+@code {
+    [Parameter] [EditorRequired] public required RenderFragment ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private object? AdditionalClasses => AdditionalAttributes?.GetValueOrDefault("class");
+}

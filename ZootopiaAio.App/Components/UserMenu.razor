@@ -20,9 +20,9 @@
             @if (_open)
             {
                 <form action="@($"{BffPaths.Logout}?returnUrl=%2F")" method="post">
-                    <button class="fixed bottom-4 left-1/2 -translate-x-1/2 animate-fade-in fade-delay-300"
-                            type="submit">Sign out
-                    </button>
+                    <ZootButton class="fixed bottom-4 left-1/2 -translate-x-1/2 animate-fade-in fade-delay-300"
+                                type="submit">Sign out
+                    </ZootButton>
                 </form>
             }
         </div>

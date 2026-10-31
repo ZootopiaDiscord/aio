@@ -3,6 +3,9 @@
 @source "../";
 
 @theme inline {
+    --color-zoot-light: #90DA6E;
+    --color-zoot-dark: #4BB77A;
+
     --animate-fade-in: fade-in 1s var(--fade-delay, 0s) backwards;
 
     @keyframes fade-in {
