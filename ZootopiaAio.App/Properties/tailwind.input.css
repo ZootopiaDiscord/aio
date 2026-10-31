@@ -6,6 +6,10 @@
     --color-zoot-light: #90DA6E;
     --color-zoot-dark: #4BB77A;
 
+    --color-role-zpd: #388cb0;
+    --color-role-hustler: #ff387a;
+    --color-role-zootopian: #72af80;
+
     --animate-fade-in: fade-in 1s var(--fade-delay, 0s) backwards;
 
     @keyframes fade-in {
