@@ -1,2 +1,23 @@
 @import "tailwindcss" source(none);
+
 @source "../";
+
+@theme inline {
+    --animate-fade-in: fade-in 1s var(--fade-delay, 0s) backwards;
+
+    @keyframes fade-in {
+        0% {
+            transform: translateY(-25%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+}
+
+@utility fade-delay-* {
+    --fade-delay: calc(--value(integer) * 1ms);
+    --fade-delay: --value([*]);
+}

@@ -1,7 +1,12 @@
 ﻿@inherits LayoutComponentBase
 
-<header>
+<header class="w-full h-24 px-4 flex items-center justify-between">
+    <div class="text-4xl">
+        <SectionOutlet SectionName="page-header"/>
+    </div>
     <LoginDisplay/>
 </header>
 
-@Body
+<main class="overflow-x-hidden">
+    @Body
+</main>

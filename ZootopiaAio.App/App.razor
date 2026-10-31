@@ -6,12 +6,12 @@
                 <NotAuthorized>
                     @if (context.User.Identity?.IsAuthenticated is true)
                     {
-                        <h1>Not allowed</h1>
+                        <SectionContent SectionName="page-header">Not allowed</SectionContent>
                         <p>Your account does not have access to this page.</p>
                     }
                     else
                     {
-                        <h1>Sign in</h1>
+                        <SectionContent SectionName="page-header">Sign in</SectionContent>
                         <p>This page needs you to be signed in.</p>
                         <SignInButton/>
                     }
