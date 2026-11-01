@@ -1,0 +1,18 @@
+<NavLink href="@Href" Match="@Match" ActiveClass="active"
+         class="@("group relative flex flex-col justify-center items-center h-full px-4 " +
+                "before:hidden [.active]:before:inline before:-z-1 before:absolute before:top-2 before:left-2 before:w-[calc(100%_-_1rem)] before:h-[calc(100%_-_1rem)] before:rounded-lg before:bg-neutral-500/10 dark:before:bg-zinc-900/20 before:inset-shadow-sm/10 dark:before:inset-shadow-sm/30 " +
+                $"{(ShowDivider ? "after:absolute after:w-px after:h-8 after:top-1/2 after:-translate-y-1/2 after:left-full after:bg-black/30 dark:after:bg-white/30" : string.Empty)
+                }")">
+    <span class="size-5 mask-contain mask-center mask-no-repeat bg-black dark:bg-white
+                 group-[.active]:bg-linear-to-b group-[.active]:from-zoot-light group-[.active]:to-zoot-dark"
+          style="mask-image: url('img/svg/@(Icon).svg')" role="img" aria-label="Icon for @ChildContent"></span>
+    <span class="text-sm">@ChildContent</span>
+</NavLink>
+
+@code {
+    [Parameter] public bool ShowDivider { get; set; } = true;
+    [Parameter] [EditorRequired] public required RenderFragment ChildContent { get; set; }
+    [Parameter] [EditorRequired] public required string Href { get; set; }
+    [Parameter] [EditorRequired] public required NavLinkMatch Match { get; set; }
+    [Parameter] [EditorRequired] public required string Icon { get; set; }
+}
