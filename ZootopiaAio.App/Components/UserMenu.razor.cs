@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Components;
+using ZootopiaAio.App.Authentication;
 
 namespace ZootopiaAio.App.Components;
 
@@ -8,9 +9,9 @@ public partial class UserMenu : ComponentBase
     // Ordered by priority: the first role the user has determines the colour.
     private static readonly RoleStyle[] RoleStyles =
     [
-        new("Zootopian Police", "inset-ring-role-zpd", "text-role-zpd"),
-        new("Hustler", "inset-ring-role-hustler", "text-role-hustler"),
-        new("Zootopian", "inset-ring-role-zootopian", "text-role-zootopian")
+        new(ZootRoles.Zpd, "inset-ring-role-zpd", "text-role-zpd"),
+        new(ZootRoles.Booster, "inset-ring-role-hustler", "text-role-hustler"),
+        new(ZootRoles.Verified, "inset-ring-role-zootopian", "text-role-zootopian")
     ];
 
     private bool _open;
